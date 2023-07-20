@@ -1,18 +1,11 @@
 import random
-
-# generate randon number
-number =  random.randint(-10000, 10000)
-print("orginal number:", number)
-
-# find last number
-end = str(number) [-1]
-print(end)
-
-# compare end number
-end_as_number = int(end)
-if end_as_number > 5:
-    print("greater than 5")
-elif end_as_number < 5 and end_as_number != 0:
-    print("smaller than 5")
-else:
-    print("0")
+number = random.randint(-10000, 10000)
+if number < 0:
+    number = -number
+last_digit = number % 10
+if last_digit < 6 and last_digit != 0:
+    print("Last digit of {} is {} and is less than 6 and not 0".format(number, last_digit))
+elif last_digit == 0:
+    print("Last digit of {} is {} and is 0".format(number, last_digit))
+elif last_digit > 5:
+    print("Last digit of {} is {} and is greater than 5".format(number, last_digit))

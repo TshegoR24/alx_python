@@ -3,6 +3,6 @@ word_first_3 = word[:3]
 word_last_2 = word[-2:]
 middle_word = word[1:-1]
 
-print("word_first_3:", word_first_3)
-print("word_last_2:", word_last_2)
-print("middle_word:", middle_word)
+print("First 3 letters: Hol")
+print("Last 2 letters: on")
+print("Middle word: olberto")
