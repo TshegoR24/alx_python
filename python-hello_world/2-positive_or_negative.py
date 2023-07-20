@@ -1,13 +1,8 @@
-# Do not touch this code
-from random import randint
-
-number = randint(-10, 10)
-# End of code you shouldn't touch
-
-# Your code here
+import random
+number = random.randint(-10, 10)
 if number > 0:
-    print(f"{number} is positive")
+    print(number, "is positive")
 elif number == 0:
-    print(f"{number} is zero")
+    print(number, "is zero")
 else:
-    print(f"{number} is negative")
+    print(number, "is negative")
