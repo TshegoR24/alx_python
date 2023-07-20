@@ -1,2 +1,2 @@
-for i in range(0, 100):
-    print(i, "=", hex(i))
+for i in range(0, 99):
+    print("{} = 0x{:02x}".format(i, i))
