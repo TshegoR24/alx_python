@@ -1,15 +1,17 @@
 import sys
 
-def print_arguments(argv):
-    num_arguments = len(argv) - 1  # The first argument is the script name itself
-
-    print(f"Number of argument(s): {num_arguments}", end='')
-    if num_arguments == 0:
-        print(" .")
+def main():
+    argv_len = len(sys.argv)
+    
+    print(f"Number of argument(s): {argv_len - 1}", end="")
+    
+    if argv_len == 1:
+        print(".")
     else:
-        print(":")
-        for i, arg in enumerate(argv[1:], start=1):
-            print(f"{i}: {arg}")
+        print(f", followed by\n:")
+        for i in range(1, argv_len):
+            print(f"{i}: {sys.argv[i]}")
 
 if __name__ == "__main__":
-    print_arguments(sys.argv)
+    main()
+
