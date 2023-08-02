@@ -1,28 +1,42 @@
 class Square:
     """
-    This class defines a square by its size.
-    Attributes:
-        size (int): The size of the square.
+    This class represents a square with a private instance attribute 'size'.
     """
+
     def __init__(self, size):
         """
-        This method initializes the size of the square.
-        Args:
-            size (int): The size of the square.
+        Initialize a Square instance with the given size.
+
+        Parameters:
+        size (int): The size of the square (side length).
         """
-        self.size = size
+        self._size = size
+
     def area(self):
         """
-        This method calculates the area of the square.
+        Calculate and return the area of the square.
+
         Returns:
-            int: The area of the square.
+        int: The area of the square.
         """
-        return self.size ** 2
+        return self._size * self._size
+
     def perimeter(self):
         """
-        This method calculates the perimeter of the square.
+        Calculate and return the perimeter of the square.
+
         Returns:
-            int: The perimeter of the square.
+        int: The perimeter of the square.
         """
-        return 4 * self.size
+        return 4 * self._size
+
+    def __str__(self):
+        """
+        Return a string representation of the square.
+
+        Returns:
+        str: A string representation of the square.
+        """
+        return f"Square with side length {self._size}"
+
 
