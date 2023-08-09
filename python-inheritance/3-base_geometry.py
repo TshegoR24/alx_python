@@ -25,4 +25,4 @@ class BaseGeometry:
             raise ValueError("{} must be greater than 0".format(name))
         
         a = BaseGeometry()
-        print(dir(a))
+        print(dir(a))  
