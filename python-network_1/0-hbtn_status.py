@@ -1,87 +1,69 @@
-"""
-Fetches and displays the status from a given URL using the requests package.
-"""
+python
 
-import requests
+import json
 
 
-def fetch_and_display_status(url):
-    """
-    Fetches the status from the specified URL and displays the response body.
+try:
+    # importing required module 
+    from urllib3.exceptions import InsecureRequestWarning
 
-    Args:
-        url (str): The URL to fetch the status from.
-
-    Returns:
-        None
-
-    Raises:
-        requests.exceptions.RequestException: If an error occurs during the request.
-    """
-    try:
-        response = requests.get(url)
-        response.raise_for_status()
-
-        body_lines = response.text.strip().split('\n')
-        formatted_body = "\n".join(['\t- ' + line.strip() for line in body_lines])
-
-        print(formatted_body)
-
-    except requests.exceptions.RequestException as e:
-        print("An error occurred:", e)
-
-
-class StatusFetcher:
-    """
-    A class for fetching and displaying the status from a given URL.
-
-    Attributes:
-        url (str): The URL to fetch the status from.
-
-    Methods:
-        __init__: Initializes a StatusFetcher instance.
-        fetch_and_display: Fetches the status from the specified URL and displays the response body.
-    """
-
-    def __init__(self, url):
-        """
-        Initializes a StatusFetcher instance.
-
-        Args:
-            url (str): The URL to fetch the status from.
-        """
-        self.url = url
-
-    def fetch_and_display(self):
-        """
-        Fetches the status from the specified URL and displays the response body.
-
-        Returns:
-            None
-
-        Raises:
-            requests.exceptions.RequestException: If an error occurs during the request.
-        """
-        try:
-            response = requests.get(self.url)
-            response.raise_for_status()
-
-            body_lines = response.text.strip().split('\n')
-            formatted_body = "\n".join(['\t- ' + line.strip() for line in body_lines])
-
-            print(formatted_body)
-
-        except requests.exceptions.RequestException as e:
-            print("An error occurred:", e)
-
-
-if __name__ == "__main__":
-    """
-    Entry point of the script.
-    """
+    # disabling warnings for insecure connection  
+    requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
+    
     url = "https://alu-intranet.hbtn.io/status"
-    fetch_and_display_status(url)
+  
+    headers={
+        'User-Agent': 'Mozilla/5.0'
+      }
+      
+    
+  # sending get request and saving the response as response object 
+      r =requests.get(url,headers=headers,verify=False) 
+  
+  
+  if 200 <=r.status_code<=299 :
+      data =json.loads(r.text)["data"]
 
-    status_fetcher = StatusFetcher(url)
-    status_fetcher.fetch_and_display()
+      print("Status Code:",str(r.status_code))
+      print("-"*40,"\n")
+      i=-1
+      while True:
+          try:
+              temp=[]
+              title="Project "+ str((i+1))+":\t"+"\n" 
+
+              project={}
+              
+            
+          
+            for key, value in sorted(data[list(data)[i]].items()):
+                k="\t{:<6}".format(key)+":"+"{}".format(value)+"\n" 
+                temp.append(k)
+                
+            
+            text=""
+            j=-1 
+            length=len([*temp])
+
+            while len(title)>length or sum([(max(map(lambda x:len(x), [j["project"],j['description'],j['deadline']])))]*(sum(range(-int((-7)//8)*8,-1)))+(min(abs(leng//8)-1,(leng%8))))>=(leng):
+
+                leng+=1
+
+
+
+            max_width=[None]*leng 
+
+
+            
+
+
+
+            break
+        
+        
+        except Exception as e:
+            pass
+
+        finally:
+            del data[-1]
 
