@@ -2,14 +2,17 @@
 
 import requests
 
-response = requests.get('https://alu-intranet.hbtn.io/status')
+url = 'https://alu-intranet.hbtn.io/status'
+response = requests.get(url)
 
 if response.status_code == 200:
     data = response.json()
-    for key, value in data.items():
-        print(f'- {key}: {value}')
+    print("Body response:")
+    print("\t- type:", type(data))
+    print("\t- content:", data)
 else:
-    print(f'Error: {response.status_code}')
+    print(f"Error: Unable to fetch data from {url}. Status code: {response.status_code}")
+
 
 
 
