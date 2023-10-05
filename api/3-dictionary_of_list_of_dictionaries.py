@@ -1,21 +1,22 @@
 #!/usr/bin/python3
 
-import json
+python
 import requests
-import sys
-# Get all employees' TODO lists
-response = requests.get("https://jsonplaceholder.typicode.com/todos")
-todos = response.json()
-# Get all employees' names
-response = requests.get("https://jsonplaceholder.typicode.com/users")
-employees = response.json()
-# Create a dictionary of all employees' TODO lists
-all_todos = {}
-for employee in employees:
-    all_todos[employee["id"]] = []
-# Add each employee's TODO list to the dictionary
-for todo in todos:
-    all_todos[todo["userId"]].append({"username": employee["username"], "task": todo["title"], "completed": todo["completed"]})
-# Write the dictionary to a JSON file
-with open("todo_all_employees.json", "w") as jsonfile:
-    json.dump(all_todos, jsonfile)
+import json
+
+def get_all_tasks():
+    url = "https://jsonplaceholder.typicode.com/todos"
+    response = requests.get(url)
+    return response.json()
+
+def export_to_json(tasks):
+    file_name = "todo_all_employees.json"
+    with open(file_name, 'w') as file:
+        json.dump(tasks, file)
+
+def main():
+    tasks = get_all_tasks()
+    export_to_json(tasks)
+
+if __name__ == "__main__":
+    main()
