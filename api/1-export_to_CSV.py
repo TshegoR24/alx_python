@@ -4,34 +4,39 @@ Exporting the data from the api requests to the csv file
 """
 
 python
-import requests
 import csv
-import sys
+import requests
+from requests.auth import HTTPBasicAuth
 
-def get_employee_details(employee_id):
-    url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
-    response = requests.get(url)
-    return response.json()
+# Replace with your own values
+USERNAME = 'your_username'
+PASSWORD = 'your_password'
+USER_ID = 'your_user_id'
 
-def get_employee_todos(employee_id):
-    url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
-    response = requests.get(url)
-    return response.json()
+# Base URL for the Asana API
+BASE_URL = 'https://app.asana.com/api/1.0'
 
-def export_to_csv(employee_id, employee_details, employee_todos):
-    file_name = f"{employee_id}.csv"
-    with open(file_name, 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
-        for todo in employee_todos:
-            writer.writerow([employee_id, employee_details["username"], todo["completed"], todo["title"]])
+# Get the user's tasks
+def get_user_tasks(user_id):
+    url = f'{BASE_URL}/users/{user_id}/tasks'
+    response = requests.get(url, auth=HTTPBasicAuth(USERNAME, PASSWORD))
+    return response.json()['data']
 
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python script.py EMPLOYEE_ID")
-        sys.exit(1)
+# Write the tasks to a CSV file
+def write_tasks_to_csv(tasks, user_id):
+    file_name = f'{user_id}.csv'
+    with open(file_name, 'w', newline='') as csvfile:
+        fieldnames = ['USER_ID', 'USERNAME', 'TASK_COMPLETED_STATUS', 'TASK_TITLE']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
-    employee_id = int(sys.argv[1])
-    employee_details = get_employee_details(employee_id)
-    employee_todos = get_employee_todos(employee_id)
-    export_to_csv(employee_id, employee_details, employee_todos)
+        writer.writeheader()
+        for task in tasks:
+            writer.writerow({'USER_ID': user_id, 'USERNAME': USERNAME, 'TASK_COMPLETED_STATUS': task['completed'], 'TASK_TITLE': task['name']})
+
+# Main function
+def main():
+    tasks = get_user_tasks(USER_ID)
+    write_tasks_to_csv(tasks, USER_ID)
+
+if __name__ == '__main__':
+    main()
