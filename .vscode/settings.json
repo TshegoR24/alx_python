@@ -9,10 +9,9 @@
             "server": "localhost",
             "port": 3306,
             "driver": "MySQL",
-            "name": "My SQL connection",
-            "database": "My SQL connection",
-            "username": "Tshego",
-            "password": "Chelseaclub24"
+            "username": "root",
+            "name": "information_schema",
+            "database": "information_schema"
         }
     ]
 }

@@ -12,6 +12,7 @@ if response.status_code == 200:
     print("\t- content:", data)
 else:
     print(f"Error: Unable to fetch data from {url}. Status code: {response.status_code}")
+   
 
 
 
