@@ -1,16 +1,18 @@
 #!/usr/bin/python3
 
-python
 import requests
 
-response = requests.get('https://alu-intranet.hbtn.io/status')
+url = "https://alu-intranet.hbtn.io/status"
+response = requests.get(url)
 
 if response.status_code == 200:
-    data = response.json()
-    for key, value in data.items():
-        print(f'- {key}: {value}')
+    content = response.text
+    print("Body response:")
+    print("\t- type:", type(content))
+    print("\t- content:", content)
 else:
-    print(f'Error: {response.status_code}')
+    print(f"Error: Status code {response.status_code}")
+
 
 
    
