@@ -1,21 +1,24 @@
 #!/usr/bin/python3
 
+python
 import requests
 
-url = 'https://alu-intranet.hbtn.io/status'
-
-try:
+def fetch_status():
+    url = "https://alu-intranet.hbtn.io/status"
     response = requests.get(url)
-    response.raise_for_status()  # Raise an exception for 4xx and 5xx status codes
 
-    # Display the response body with tabulation before each line
-    lines = response.text.split('\n')
-    formatted_response = '\n'.join(['\t' + line for line in lines])
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
 
-    print(formatted_response)
+status = fetch_status()
 
-except requests.exceptions.RequestException as e:
-    print(f"An error occurred: {e}")
+if status:
+    for key, value in status.items():
+        print(f"{key}\t- {value}")
+else:
+    print("Failed to fetch status.")
 
    
 
