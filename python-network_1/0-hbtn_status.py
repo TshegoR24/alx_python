@@ -3,22 +3,15 @@
 python
 import requests
 
-def fetch_status():
-    url = "https://alu-intranet.hbtn.io/status"
-    response = requests.get(url)
+response = requests.get('https://alu-intranet.hbtn.io/status')
 
-    if response.status_code == 200:
-        return response.json()
-    else:
-        return None
-
-status = fetch_status()
-
-if status:
-    for key, value in status.items():
-        print(f"{key}\t- {value}")
+if response.status_code == 200:
+    data = response.json()
+    for key, value in data.items():
+        print(f'- {key}: {value}')
 else:
-    print("Failed to fetch status.")
+    print(f'Error: {response.status_code}')
+
 
    
 
