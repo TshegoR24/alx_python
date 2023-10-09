@@ -1,36 +1,27 @@
 #!/usr/bin/python3
 
+python
 import requests
 import sys
 
-# Define the URL
-url = "http://0.0.0.0:5000/search_user"
+def search_user(letter):
+    url = "http://0.0.0.0:5000/search_user"
+    params = {"q": letter}
+    response = requests.post(url, data=params)
 
-# Check if there is a command line argument for the letter, set q to "" if none provided
-if len(sys.argv) == 2:
-    q = sys.argv[1]
-else:
-    q = ""
+    if response.status_code == 200:
+        try:
+            json_data = response.json()
+            if json_data:
+                for user in json_data:
+                    print(f"[{user['id']}] {user['name']}")
+            else:
+                print("No result")
+        except ValueError:
+            print("Not a valid JSON")
+    else:
+        print(f"Request failed with status code {response.status_code}")
 
-# Send a POST request with the letter as a parameter
-response = requests.post(url, data={"q": q})
-
-# Check the response status code
-if response.status_code != 200:
-    print("Error: Unable to access the server.")
-    sys.exit(1)
-
-# Try to parse the response JSON
-try:
-    data = response.json()
-except ValueError:
-    print("Not a valid JSON")
-    sys.exit(1)
-
-# Check if the JSON is empty
-if not data:
-    print("No result")
-else:
-    # Display id and name for each item in the JSON
-    for item in data:
-        print(f"[{item['id']}] {item['name']}")
+if __name__ == "__main__":
+    letter = sys.argv[1] if len(sys.argv) > 1 else ""
+    search_user(letter)
