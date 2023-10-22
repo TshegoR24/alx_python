@@ -4,25 +4,15 @@ import random
 
 number = random.randint(-10000, 10000)
 
-# Checking if the number is negative or positive
-if number < 0:
-    sign = "negative"
+# Get the last digit of the number
+last_digit = abs(number) % 10
+
+print("Last digit of", number, "is", last_digit, end=" ")
+
+if last_digit > 5:
+    print("and is greater than 5")
+elif last_digit == 0:
+    print("and is 0")
 else:
-    sign = "positive"
+    print("and is less than 6 and not 0")
 
-# Printing the result
-print(f"The last digit of {number} is {abs(number) % 10}")
-
-# Checking if the last digit is greater than 5
-if abs(number) % 10 > 5:
-    print(f"and is greater than 5")
-
-# Checking if the last digit is 0
-elif abs(number) % 10 == 0:
-    print(f"and is 0")
-
-# Checking if the last digit is less than 6 and not 0
-else:
-    print(f"and is less than 6 and not 0")
-
-print()
