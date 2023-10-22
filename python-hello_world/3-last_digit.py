@@ -1,14 +1,28 @@
+#!/usr/bin/python3
+
 import random
-# This line should not change:
+
 number = random.randint(-10000, 10000)
-# Print the last digit of the number stored in the variable `number`.
-print("Last digit of", number, "is", number % 10, end="")
-# If the last digit is greater than 5, print the message "and is greater than 5".
-if number % 10 > 5:
-    print(" and is greater than 5")
-# If the last digit is 0, print the message "and is 0".
-elif number % 10 == 0:
-    print(" and is 0")
-# If the last digit is less than 6 and not 0, print the message "and is less than 6 and not 0".
+
+# Checking if the number is negative or positive
+if number < 0:
+    sign = "negative"
 else:
-    print(" and is less than 6 and not 0")
+    sign = "positive"
+
+# Printing the result
+print(f"The last digit of {number} is {abs(number) % 10}")
+
+# Checking if the last digit is greater than 5
+if abs(number) % 10 > 5:
+    print(f"and is greater than 5")
+
+# Checking if the last digit is 0
+elif abs(number) % 10 == 0:
+    print(f"and is 0")
+
+# Checking if the last digit is less than 6 and not 0
+else:
+    print(f"and is less than 6 and not 0")
+
+print()
